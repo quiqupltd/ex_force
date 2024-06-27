@@ -45,7 +45,9 @@ defmodule ExForce.Client.Tesla do
       [
         {ExForce.Client.Tesla.Middleware,
          {instance_url, Keyword.get(opts, :api_version, @default_api_version)}},
-        {Tesla.Middleware.Compression, format: "gzip"},
+        # Decode error causing interruptions in Self-Signup flow
+        # https://app.shortcut.com/quiqup/story/19266/incident-ssup-is-not-working-on-staging-getting-internal-service-error-is-acknowledged
+        # {Tesla.Middleware.Compression, format: "gzip"},
         {Tesla.Middleware.JSON, engine: Jason},
         {Tesla.Middleware.Headers, get_headers(opts)}
       ],
